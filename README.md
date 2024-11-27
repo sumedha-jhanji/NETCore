@@ -8,6 +8,9 @@ https://www.hackertrail.com/talent/backend/net-core-interview-questions-answers/
 https://www.fullstack.cafe/blog/dot-net-core-interview-questions-and-answers
 https://interviewprep.org/net-core-interview-questions/
 
+## API Versioning
+https://www.c-sharpcorner.com/article/api-versioning-in-asp-net-core-web-api/
+
 ## .NET Core Framework
 - Open source
 - cross palatform
