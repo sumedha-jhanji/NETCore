@@ -277,4 +277,42 @@ https://www.c-sharpcorner.com/article/api-versioning-in-asp-net-core-web-api/
   3. Features: EF Core lacks some features available in EF, such as lazy loading proxies, spatial data types, and hierarchy ID support. However, EF Core introduces new features like global query filters and shadow properties.
   4. Extensibility: EF Core offers better extensibility through custom conventions, metadata API, and pluggable components.
   5. LINQ Queries: EF Core translates more queries into SQL, reducing client-side evaluation, which improves performance.
-  6. Database Providers: EF Core supports fewer database providers out-of-the-box but allows for easier third-party provider integratio
+  6. Database Providers: EF Core supports fewer database providers out-of-the-box but allows for easier third-party provider integration
+
+## NonAction attribute
+- action methods in controller must be public
+- Way to prevent a method from being treated as an action, we can use [NonAction] attribute
+- Can be applied to oubkic method to exclude them from being considered as action by framework.
+- Other way is :- if we declare that as private, it won't be accessible via routing and framework won;t recognize it as an action method
+
+## UseWhen and MapWhen
+- used go conditionally implement middleware
+- useful, when we want to implement most of middleware to run for all requestsd but have some middleware that should only run for certain requests
+- UsWhen: executes middleware when specifid condition is met
+```csharp
+public void Configure(IApplicationBuilder app)
+{
+  app.UseMiddleware<CommonMiddleware>();
+  app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), appBuilder =>{
+    appBuilder.UseMiddleware<ApiSpecificMiddleware>();
+  });
+  app.UseMiddleware<OtherMiddleware>();
+}
+```
+- MapWhen: splits the middleware pipleline into 2 branches based on condition.It is useful when you want to create completely separate middleware piplelines for differenmt types of requests.
+```csharp
+public void Configure(IApplicationBuilder app)
+{
+  app.UseMiddleware<CommonMiddleware>();
+  app.MapWhen(context => context.Request.Path.StartsWithSegments("/admin"), appBuilder =>{
+    appBuilder.UseMiddleware<AdminMiddleware>();
+  });
+  app.UseMiddleware<OtherMiddleware>();
+}
+```
+
+## Add(), Map(), Use(), Run()
+- Add(): The Add() methods are used to register services in the Dependency Injection (DI) container. These methods are typically called in the ConfigureServices method in Startup.cs
+- Map():  The Map() methods are used to define how the application routes requests. These methods are called in the Configure method in Startup.cs
+- Use(): The Use() methods are used to configure the middleware pipeline. These methods are also called in the Configure method in Startup.cs
+- Run(): The Run() method is used to add a terminal middleware delegate to the application's request pipeline. This middleware is designed to handle a request and produce a response, without passing the request to any subsequent middleware in the pipeline. This middleware is designed to handle a request and produce a response, without passing the request to any subsequent middleware in the pipeline.
