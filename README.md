@@ -313,6 +313,6 @@ public void Configure(IApplicationBuilder app)
 
 ## Add(), Map(), Use(), Run()
 - Add(): The Add() methods are used to register services in the Dependency Injection (DI) container. These methods are typically called in the ConfigureServices method in Startup.cs
-- Map():  The Map() methods are used to define how the application routes requests. These methods are called in the Configure method in Startup.cs
+- Map():  The Map() methods are used to define how the application routes requests. These methods are called in the Configure method in Startup.cs. This branches the middleware pipleline based on request path.
 - Use(): The Use() methods are used to configure the middleware pipeline. These methods are also called in the Configure method in Startup.cs
 - Run(): The Run() method is used to add a terminal middleware delegate to the application's request pipeline. This middleware is designed to handle a request and produce a response, without passing the request to any subsequent middleware in the pipeline. This middleware is designed to handle a request and produce a response, without passing the request to any subsequent middleware in the pipeline.
